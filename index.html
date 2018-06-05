@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="styles.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<body>
+    <div class="container-fluid">
+
+        <h1>Binary Calculator</h1>
+        <form>
+            <input type="number" id="first">
+            <br>
+            <br>
+            <input type="number" id="second">
+            <br>
+            <br>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default" onclick="add()">+</button>
+                <button type="button" class="btn btn-default" onclick="subtract()">-</button>
+                <button type="button" class="btn btn-default" onclick="multipy()">*</button>
+                <button type="button" class="btn btn-default" onclick="divide()">/</button>
+            </div>
+        </form>
+        <div id="answer"> 
+        </div>
+    </div>
+    <script>
+        let numbers = []
+
+        function getNumbers() {
+            let firstNumber = document.getElementById("first").value;
+            let secondNumber = document.getElementById("second").value;
+            return [parseInt(firstNumber, 2), parseInt(secondNumber, 2)];
+        }
+
+        function showAnswer(value) {
+            document.getElementById("answer").innerHTML = dec2bin(value);
+        }
+
+        function dec2bin(dec){
+            return (dec >>> 0).toString(2);
+        }
+
+        function add() {
+            numbers = getNumbers();
+            showAnswer(numbers[0] + numbers[1]);
+        }
+
+        function subtract() {
+            numbers = getNumbers();
+            showAnswer(numbers[0] - numbers[1])
+        }
+
+        function multipy() {
+            numbers = getNumbers();
+            showAnswer(numbers[0] * numbers[1])
+        }
+
+        function divide() {
+            numbers = getNumbers();
+            showAnswer(numbers[0] / numbers[1])
+        }
+    </script>
+</body>
+
+</html>

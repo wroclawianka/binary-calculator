@@ -1,0 +1,17 @@
+.container-fluid{
+    max-width: 400px;
+    border: 1px solid black;
+    padding: 0 20px 20px 20px;
+    margin: 20px;
+    text-align: center;
+}
+
+h1{
+    padding: 20px 0;
+}
+
+#answer{
+    height: 30px;
+    padding: 10px 0;
+    font-size: 150%;
+}
