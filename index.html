@@ -2,6 +2,7 @@
 <html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Binary Calculator</title>
 <link rel="stylesheet" href="styles.css">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -12,15 +13,19 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<!-- favicon -->
+<link rel="icon" href="favicon-calculator.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="favicon-calculator.ico" type="image/x-icon" />
+
 <body>
     <div class="container-fluid">
 
         <h1>Binary Calculator</h1>
         <form>
-            <input type="number" id="first">
+            <input type="number" id="first" pattern="^[01]+$">
             <br>
             <br>
-            <input type="number" id="second">
+            <input type="number" id="second" pattern="^[01]+$">
             <br>
             <br>
             <div class="btn-group" role="group">
@@ -30,11 +35,18 @@
                 <button type="button" class="btn btn-default" onclick="divide()">/</button>
             </div>
         </form>
-        <div id="answer"> 
+        <div id="answer">
         </div>
     </div>
     <script>
-        let numbers = []
+        let numbers = [];
+        let pattern = /^[01]+$/;
+
+        $("input").keyup(function(event) {
+            let target = $(event.target);
+            setBorders(target);
+            setButtons();
+        });
 
         function getNumbers() {
             let firstNumber = document.getElementById("first").value;
@@ -46,7 +58,7 @@
             document.getElementById("answer").innerHTML = dec2bin(value);
         }
 
-        function dec2bin(dec){
+        function dec2bin(dec) {
             return (dec >>> 0).toString(2);
         }
 
@@ -68,6 +80,43 @@
         function divide() {
             numbers = getNumbers();
             showAnswer(numbers[0] / numbers[1])
+        }
+
+        function imputIsValid(imput) {
+            let value = imput.val();
+            return (pattern.test(value)) ? true : false;
+        }
+
+        function imputIsEmpty(imput) {
+            let value = imput.val();
+            return (value) ? false : true;
+        }
+
+        function setBorder(target, color) {
+            target.css("border", `${color} 1px solid`);
+        }
+
+        function setBorders(imput) {
+            if (imputIsValid(imput) || imputIsEmpty(imput)) {
+                setBorder(imput, "#d9d9d9");
+            } else {
+                setBorder(imput, "red");
+            }
+        }
+
+        function disableButtons(value) {
+            $('button').prop('disabled', value);
+        }
+
+        function setButtons() {
+            let firstInput = $("input#first");
+            let secondInput = $("input#second");
+
+            if (imputIsValid(firstInput) && imputIsValid(secondInput)) {
+                disableButtons(false);
+            } else {
+                disableButtons(true);
+            }
         }
     </script>
 </body>
